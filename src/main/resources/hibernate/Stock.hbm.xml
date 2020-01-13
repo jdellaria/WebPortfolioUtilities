@@ -4,15 +4,30 @@
 
 <hibernate-mapping>
     <class name="com.mkyong.stock.model.Stock" table="stock" catalog="mkyong">
-        <id name="stockId" type="java.lang.Long">
-            <column name="STOCK_ID" />
+        <id name="Id" type="java.lang.Long">
+            <column name="ID" />
             <generator class="identity" />
         </id>
-        <property name="stockCode" type="string">
-            <column name="STOCK_CODE" length="10" not-null="true" unique="true" />
+        <property name="Symbol" type="string">
+            <column name="Symbol" length="10" not-null="true" unique="true" />
         </property>
-        <property name="stockName" type="string">
-            <column name="STOCK_NAME" length="20" not-null="true" unique="true" />
+        <property name="TimeStamp" type="string">
+            <column name="TimeStamp" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="Open" type="double">
+            <column name="Open"   not-null="false" unique="false" />
+        </property>
+        <property name="High" type="double">
+            <column name="High"   not-null="false" unique="false" />
+        </property>
+        <property name="Low" type="double">
+            <column name="Low"   not-null="false" unique="false" />
+        </property>
+        <property name="Close" type="double">
+            <column name="Close"   not-null="false" unique="false" />
+        </property>
+        <property name="AdjClose" type="double">
+            <column name="AdjClose"   not-null="false" unique="false" />
         </property>
     </class>
 </hibernate-mapping>

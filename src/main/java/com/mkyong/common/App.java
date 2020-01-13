@@ -3,6 +3,10 @@ package com.mkyong.common;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import com.mkyong.stock.bo.StockBo;
 import com.mkyong.stock.model.Stock;
 
@@ -29,9 +33,11 @@ public class App
     	ApplicationContext appContext =	new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
       System.out.println("!!!!!!!!!!!!!!!!! appContext!!!!!!!!!!!!!!!!! ");
 
+    	StockBo stockBo = (StockBo)appContext.getBean("stockBo");
+      Stock stock = new Stock();
+
       String HTMLSTring  = getUrlContents("https://finance.yahoo.com/quote/AIG/history?p=AIG");
       Document doc = Jsoup.parse(HTMLSTring);
-
       String title = doc.title();
       System.out.printf("Title: %s%n", title);
 //    	Element link = doc.select("table").first();
@@ -43,19 +49,42 @@ public class App
         Elements cols = row.select("td");
         if (cols.size() > 3)
         {
+              	/** insert **/
+              	stock.setSymbol("AIG");
+              	stock.setTimeStamp(cols.get(0).text());
+                stock.setOpen(Double.parseDouble(cols.get(1).text()));
+                stock.setHigh(Double.parseDouble(cols.get(2).text()));
+                stock.setLow(Double.parseDouble(cols.get(3).text()));
+                stock.setClose(Double.parseDouble(cols.get(4).text()));
+                stock.setAdjClose(Double.parseDouble(cols.get(5).text()));
+                try
+                {
+                  stockBo.save(stock);
+                }
+
+                catch (org.springframework.dao.DataIntegrityViolationException ex)
+                {
+                  System.out.println("DataIntegrityViolationException Exception!!");
+                  System.out.println(ex);
+                }
+                catch (HibernateException ex)
+                {
+                  System.out.println("Hibernate Exception!!");
+                  System.out.println(ex);
+                }
+                catch (Exception ex)
+                {
+                  System.out.println("Exception Exception!!");
+                  System.out.println(ex);
+                }
           System.out.printf("Date: %s Open: %s High: %s Low: %s Close: %s AdjClose: %s %n", cols.get(0).text(), cols.get(1).text(), cols.get(2).text(), cols.get(3).text(), cols.get(4).text(), cols.get(5).text());
         }
-      /*    	    if (cols.get(7).text().equals("down")) {
-        downServers.add(cols.get(5).text());
-      }*/
-      }
-    	StockBo stockBo = (StockBo)appContext.getBean("stockBo");
+  //        	    if (cols.get(7).text().equals("down")) {
+  //      downServers.add(cols.get(5).text());
+  //    }
+    }
 
-    	/** insert **/
-    	Stock stock = new Stock();
-    	stock.setStockCode("7668");
-    	stock.setStockName("HAIO");
-    	stockBo.save(stock);
+
 
     	/** select **/
 //    	Stock stock2 = stockBo.findByStockCode("7668");

@@ -53,7 +53,11 @@
     <artifactId>hibernate</artifactId>
     <version>3.2.3.ga</version>
   </dependency>
-
+  <dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>3.6.3.Final</version>
+  </dependency>
 
   <dependency>
     <groupId>javax.transaction</groupId>

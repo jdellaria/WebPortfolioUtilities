@@ -6,47 +6,90 @@ public class Stock implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long stockId;
-	private String stockCode;
-	private String stockName;
-
+	private Long Id;
+	private String symbol;
+	private String timeStamp;
+	private double open;
+	private double high;
+	private double low;
+	private double close;
+	private double adjClose;
 	public Stock() {
 	}
 
-	public Stock(String stockCode, String stockName) {
-		this.stockCode = stockCode;
-		this.stockName = stockName;
+	public Stock(String stockSymbol, String xTimeStamp) {
+		this.symbol = stockSymbol;
+		this.timeStamp = xTimeStamp;
 	}
 
-	public Long getStockId() {
-		return this.stockId;
+	public Long getId() {
+		return this.Id;
 	}
 
-	public void setStockId(Long stockId) {
-		this.stockId = stockId;
+	public void setId(Long stockId) {
+		this.Id = stockId;
 	}
 
-	public String getStockCode() {
-		return this.stockCode;
+	public String getSymbol() {
+		return this.symbol;
 	}
 
-	public void setStockCode(String stockCode) {
-		this.stockCode = stockCode;
+	public void setSymbol(String stockSymbol) {
+		this.symbol = stockSymbol;
 	}
 
-	public String getStockName() {
-		return this.stockName;
+	public String getTimeStamp() {
+		return this.timeStamp;
 	}
 
-	public void setStockName(String stockName) {
-		this.stockName = stockName;
+	public void setTimeStamp(String xTimeStamp) {
+		this.timeStamp = xTimeStamp;
 	}
 
+	public double getOpen() {
+		return this.open;
+	}
+
+	public void setOpen(double  xPrice) {
+		this.open = xPrice;
+	}
+
+	public double getHigh() {
+		return this.high;
+	}
+
+	public void setHigh(double  xPrice) {
+		this.high = xPrice;
+	}
+
+	public double getLow() {
+		return this.low;
+	}
+
+	public void setLow(double  xPrice) {
+		this.low = xPrice;
+	}
+
+	public double getClose() {
+		return this.close;
+	}
+
+	public void setClose(double  xPrice) {
+		this.close = xPrice;
+	}
+
+	public double getAdjClose() {
+		return this.adjClose;
+	}
+
+	public void setAdjClose(double  xPrice) {
+		this.adjClose = xPrice;
+	}
 	@Override
 	public String toString() {
-		return "Stock [stockCode=" + stockCode + ", stockId=" + stockId
-				+ ", stockName=" + stockName + "]";
+		return "Stock [stockSymbol=" + symbol + ", Id=" + Id
+				+ ", timeStamp=" + timeStamp + "]";
 	}
 
-	
+
 }
