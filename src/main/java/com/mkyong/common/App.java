@@ -25,8 +25,86 @@ import org.jsoup.select.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class App
 {
+    public static Date StringToDate( String sDate ) throws Exception
+    {
+      Date returnDate;
+      String sDateError  = "Jan 1, 1700";
+/*      String sDate1= "31/12/1998";
+      String sDate2 = "31-Dec-1998";
+      String sDate3 = "12 31, 1998";
+      String sDate4 = "Thu, Dec 31 1998";
+      String sDate5 = "Thu, Dec 31 1998 23:37:50";
+      String sDate6 = "31-Dec-1998 23:37:50";
+      String sDate7  = "Aug 23, 2019";*/
+
+/*      SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
+      SimpleDateFormat formatter2=new SimpleDateFormat("dd-MMM-yyyy");
+      SimpleDateFormat formatter3=new SimpleDateFormat("MM dd, yyyy");
+      SimpleDateFormat formatter4=new SimpleDateFormat("E, MMM dd yyyy");
+      SimpleDateFormat formatter5=new SimpleDateFormat("E, MMM dd yyyy HH:mm:ss");
+      SimpleDateFormat formatter6=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");*/
+      SimpleDateFormat formatter=new SimpleDateFormat("MMM dd, yyyy");
+      try
+      {
+        returnDate=formatter.parse(sDate);
+
+      }
+      catch (Exception ex)
+      {
+        returnDate=formatter.parse(sDateError);
+      }
+      return(returnDate);
+
+    }
+
+    public static void mainkmkm(String[] args) {
+      String sDate  = "Jan 1, 2020";
+      Date dDate;
+      Date returnDate = null;
+
+      ApplicationContext appContext =	new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
+      System.out.println("!!!!!!!!!!!!!!!!! appContext!!!!!!!!!!!!!!!!! ");
+
+      StockBo stockBo = (StockBo)appContext.getBean("stockBo");
+      Stock stock = new Stock();
+
+
+      try
+      {
+        returnDate = StringToDate(sDate);
+      }
+      catch (Exception ex)
+      {
+        System.out.println("Date Exception!!");
+      }
+      System.out.println(sDate+"\t"+returnDate);
+      stock.setSymbol("AIG");
+      stock.setTimeStamp(sDate);
+      stock.setDateStamp(returnDate);
+      stock.setOpen(1212.2);
+      stock.setHigh(123132.33);
+      stock.setLow(3345);
+      stock.setClose(66666);
+      stock.setAdjClose(9998.3);
+
+      try
+      {
+        stockBo.save(stock);
+      }
+
+      catch (org.springframework.dao.DataIntegrityViolationException ex)
+      {
+        System.out.println("DataIntegrityViolationException Exception!!");
+        System.out.println(ex);
+      }
+    }
+
+
     public static void main( String[] args )
     {
       System.out.println("!!!!!!!!!!!!!!!!! Entering Application for HIBERNATE Stock !!!!!!!!!!!!!!!!!!!");
@@ -52,6 +130,14 @@ public class App
               	/** insert **/
               	stock.setSymbol("AIG");
               	stock.setTimeStamp(cols.get(0).text());
+                try
+                {
+                  stock.setDateStamp(StringToDate(cols.get(0).text()));
+                }
+                catch (Exception ex)
+                {
+                  System.out.println("Date Exception!!");
+                }
                 stock.setOpen(Double.parseDouble(cols.get(1).text()));
                 stock.setHigh(Double.parseDouble(cols.get(2).text()));
                 stock.setLow(Double.parseDouble(cols.get(3).text()));

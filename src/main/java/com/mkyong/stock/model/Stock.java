@@ -1,6 +1,7 @@
 package com.mkyong.stock.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Stock implements Serializable {
 
@@ -9,6 +10,7 @@ public class Stock implements Serializable {
 	private Long Id;
 	private String symbol;
 	private String timeStamp;
+	private Date dateStamp;
 	private double open;
 	private double high;
 	private double low;
@@ -45,6 +47,15 @@ public class Stock implements Serializable {
 	public void setTimeStamp(String xTimeStamp) {
 		this.timeStamp = xTimeStamp;
 	}
+
+	public Date getDateStamp() {
+		return this.dateStamp;
+	}
+
+	public void setDateStamp(Date xTimeStamp) {
+		this.dateStamp = xTimeStamp;
+	}
+
 
 	public double getOpen() {
 		return this.open;

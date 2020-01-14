@@ -12,7 +12,10 @@
             <column name="Symbol" length="10" not-null="true" unique="true" />
         </property>
         <property name="TimeStamp" type="string">
-            <column name="TimeStamp" length="20" not-null="true" unique="true" />
+            <column name="StringTimeStamp" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="DateStamp" type="date">
+            <column name="DateStamp" length="20" not-null="true" unique="true" />
         </property>
         <property name="Open" type="double">
             <column name="Open"   not-null="false" unique="false" />
