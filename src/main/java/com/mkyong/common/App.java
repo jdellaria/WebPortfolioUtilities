@@ -7,8 +7,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.mkyong.stock.bo.StockBo;
-import com.mkyong.stock.model.Stock;
+import com.mkyong.stock.bo.AssetsBo;
+import com.mkyong.stock.model.Assets;
+import com.mkyong.stock.bo.HistoricalPricesBo;
+import com.mkyong.stock.model.HistoricalPrices;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -62,17 +64,23 @@ public class App
 
     }
 
-    public static void mainkmkm(String[] args) {
-      String sDate  = "Jan 1, 2020";
+    public static void main(String[] args) {
+      String sDate  = "Feb 1, 2020";
       Date dDate;
       Date returnDate = null;
 
       ApplicationContext appContext =	new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
       System.out.println("!!!!!!!!!!!!!!!!! appContext!!!!!!!!!!!!!!!!! ");
 
-      StockBo stockBo = (StockBo)appContext.getBean("stockBo");
-      Stock stock = new Stock();
+      HistoricalPricesBo historicalPricesBo = (HistoricalPricesBo)appContext.getBean("historicalPricesBo");
+      HistoricalPrices historicalPrices = new HistoricalPrices();
 
+      AssetsBo assetsBo = (AssetsBo)appContext.getBean("assetsBo");
+      Assets assets = new Assets();
+
+      assets.setSymbol("7668");
+      assets.setName("HAIO");
+      assetsBo.save(assets);
 
       try
       {
@@ -83,36 +91,45 @@ public class App
         System.out.println("Date Exception!!");
       }
       System.out.println(sDate+"\t"+returnDate);
-      stock.setSymbol("AIG");
-      stock.setTimeStamp(sDate);
-      stock.setDateStamp(returnDate);
-      stock.setOpen(1212.2);
-      stock.setHigh(123132.33);
-      stock.setLow(3345);
-      stock.setClose(66666);
-      stock.setAdjClose(9998.3);
+      historicalPrices.setSymbol("AIG");
+      historicalPrices.setTimeStamp(sDate);
+      historicalPrices.setDateStamp(returnDate);
+      historicalPrices.setOpen(1212.2);
+      historicalPrices.setHigh(123132.33);
+      historicalPrices.setLow(3345);
+      historicalPrices.setClose(66666);
+      historicalPrices.setAdjClose(9998.3);
 
       try
       {
-        stockBo.save(stock);
+        historicalPricesBo.save(historicalPrices);
       }
-
       catch (org.springframework.dao.DataIntegrityViolationException ex)
       {
         System.out.println("DataIntegrityViolationException Exception!!");
         System.out.println(ex);
       }
+      catch (HibernateException ex)
+      {
+        System.out.println("Hibernate Exception!!");
+        System.out.println(ex);
+      }
+      catch (Exception ex)
+      {
+        System.out.println("Exception Exception!!");
+        System.out.println(ex);
+      }
     }
 
 
-    public static void main( String[] args )
+    public static void mainReal( String[] args )
     {
       System.out.println("!!!!!!!!!!!!!!!!! Entering Application for HIBERNATE Stock !!!!!!!!!!!!!!!!!!!");
     	ApplicationContext appContext =	new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
       System.out.println("!!!!!!!!!!!!!!!!! appContext!!!!!!!!!!!!!!!!! ");
 
-    	StockBo stockBo = (StockBo)appContext.getBean("stockBo");
-      Stock stock = new Stock();
+    	HistoricalPricesBo historicalPricesBo = (HistoricalPricesBo)appContext.getBean("historicalPricesBo");
+      HistoricalPrices historicalPrices = new HistoricalPrices();
 
       String HTMLSTring  = getUrlContents("https://finance.yahoo.com/quote/AIG/history?p=AIG");
       Document doc = Jsoup.parse(HTMLSTring);
@@ -128,24 +145,24 @@ public class App
         if (cols.size() > 3)
         {
               	/** insert **/
-              	stock.setSymbol("AIG");
-              	stock.setTimeStamp(cols.get(0).text());
+              	historicalPrices.setSymbol("AIG");
+              	historicalPrices.setTimeStamp(cols.get(0).text());
                 try
                 {
-                  stock.setDateStamp(StringToDate(cols.get(0).text()));
+                  historicalPrices.setDateStamp(StringToDate(cols.get(0).text()));
                 }
                 catch (Exception ex)
                 {
                   System.out.println("Date Exception!!");
                 }
-                stock.setOpen(Double.parseDouble(cols.get(1).text()));
-                stock.setHigh(Double.parseDouble(cols.get(2).text()));
-                stock.setLow(Double.parseDouble(cols.get(3).text()));
-                stock.setClose(Double.parseDouble(cols.get(4).text()));
-                stock.setAdjClose(Double.parseDouble(cols.get(5).text()));
+                historicalPrices.setOpen(Double.parseDouble(cols.get(1).text()));
+                historicalPrices.setHigh(Double.parseDouble(cols.get(2).text()));
+                historicalPrices.setLow(Double.parseDouble(cols.get(3).text()));
+                historicalPrices.setClose(Double.parseDouble(cols.get(4).text()));
+                historicalPrices.setAdjClose(Double.parseDouble(cols.get(5).text()));
                 try
                 {
-                  stockBo.save(stock);
+                  historicalPricesBo.save(historicalPrices);
                 }
 
                 catch (org.springframework.dao.DataIntegrityViolationException ex)

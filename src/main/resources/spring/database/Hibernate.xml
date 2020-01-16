@@ -2,7 +2,7 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-    
+
 	<!-- Hibernate session factory -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
     	<property name="dataSource">
@@ -14,13 +14,14 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 				<prop key="hibernate.show_sql">true</prop>
     		</props>
     	</property>
-    	
+
 		<property name="mappingResources">
 			<list>
-				<value>/hibernate/Stock.hbm.xml</value>
+        <value>/hibernate/Assets.hbm.xml</value>
+				<value>/hibernate/HistoricalPrices.hbm.xml</value>
 			</list>
 		</property>
-		
+
     </bean>
 
-</beans>    
+</beans>
