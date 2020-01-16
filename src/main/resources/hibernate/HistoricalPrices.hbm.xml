@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.mkyong.stock.model.HistoricalPrices" table="HistoricalPrices" catalog="mkyong">
+        <id name="Id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="Symbol" type="string">
+            <column name="Symbol" length="10" not-null="true" unique="true" />
+        </property>
+        <property name="TimeStamp" type="string">
+            <column name="StringTimeStamp" length="20" not-null="true" unique="false" />
+        </property>
+        <property name="DateStamp" type="date">
+            <column name="DateStamp" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="Open" type="double">
+            <column name="Open"   not-null="false" unique="false" />
+        </property>
+        <property name="High" type="double">
+            <column name="High"   not-null="false" unique="false" />
+        </property>
+        <property name="Low" type="double">
+            <column name="Low"   not-null="false" unique="false" />
+        </property>
+        <property name="Close" type="double">
+            <column name="Close"   not-null="false" unique="false" />
+        </property>
+        <property name="AdjClose" type="double">
+            <column name="AdjClose"   not-null="false" unique="false" />
+        </property>
+    </class>
+</hibernate-mapping>

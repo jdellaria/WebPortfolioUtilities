@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.mkyong.stock.model.Assets" table="Assets" catalog="mkyong">
+        <id name="stockId" type="java.lang.Long">
+            <column name="STOCK_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="Symbol" type="string">
+            <column name="Symbol" length="10" not-null="true" unique="true" />
+        </property>
+        <property name="Name" type="string">
+            <column name="Name" length="255" not-null="true" unique="true" />
+        </property>
+        <property name="Type" type="string">
+            <column name="Type" length="255" not-null="false" unique="false" />
+        </property>
+        <property name="TotalQuantity" type="int">
+            <column name="TotalQuantity" length="255" not-null="false" unique="false" />
+        </property>
+        <property name="Price" type="double">
+            <column name="Price" length="255" not-null="false" unique="false" />
+        </property>
+        <property name="Valuation" type="double">
+            <column name="Valuation"  not-null="false" unique="false" />
+        </property>
+        <property name="IncomeFreq" type="string">
+            <column name="IncomeFreq" length="255" not-null="false" unique="false" />
+        </property>
+        <property name="Income" type="double">
+            <column name="Income" not-null="true" unique="false" />
+        </property>
+        <property name="Cost" type="double">
+            <column name="Cost" not-null="true" unique="false" />
+        </property>
+        <property name="CostFreq" type="string">
+            <column name="CostFreq" length="255" not-null="false" unique="false" />
+        </property>
+        <property name="LastUpdated" type="date">
+            <column name="LastUpdated" not-null="false" unique="false" />
+        </property>
+    </class>
+</hibernate-mapping>
