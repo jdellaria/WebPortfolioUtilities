@@ -4,6 +4,8 @@ import com.mkyong.stock.bo.AssetsBo;
 import com.mkyong.stock.dao.AssetsDao;
 import com.mkyong.stock.model.Assets;
 
+import java.util.List;
+
 public class AssetsBoImpl implements AssetsBo{
 
 	AssetsDao assetsDao;
@@ -26,5 +28,13 @@ public class AssetsBoImpl implements AssetsBo{
 
 	public Assets findByStockId(String stockCode){
 		return assetsDao.findByStockId(stockCode);
+	}
+
+	public List<?> findAllAssets() {
+		return assetsDao.findAllAssets();
+	}
+
+	public List<?> findByType(String stockType){
+		return assetsDao.findByType(stockType);
 	}
 }

@@ -26,4 +26,16 @@ public class AssetsDaoImpl extends HibernateDaoSupport implements AssetsDao{
 		return (Assets)list.get(0);
 	}
 
+//	@Transactional(readOnly=true)
+	public List<?> findAllAssets() {
+			List<?> assetList = getHibernateTemplate().find("from Assets");
+//			System.out.println("Asset found: " + assetList.size());
+			return assetList;
+	}
+
+	public List<?> findByType(String stockType){
+			List<?> assetList = getHibernateTemplate().find("from Assets where Type = ?", stockType);
+//			System.out.println("Asset found: " + assetList.size());
+			return assetList;
+	}
 }

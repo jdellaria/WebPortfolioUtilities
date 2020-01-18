@@ -2,6 +2,8 @@ package com.mkyong.stock.dao;
 
 import com.mkyong.stock.model.Assets;
 
+import java.util.List;
+
 public interface AssetsDao {
 
 	void save(Assets stock);
@@ -12,4 +14,7 @@ public interface AssetsDao {
 
 	Assets findByStockId(String stockCode);
 
+ 	List<?> findAllAssets();
+
+	List<?> findByType(String stockType);
 }

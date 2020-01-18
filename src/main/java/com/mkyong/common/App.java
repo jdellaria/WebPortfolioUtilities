@@ -73,7 +73,14 @@ public class App
       Assets stock2 = assetsBo.findByStockId("3");
       System.out.println(stock2);
 
+      List <?> stockRows = assetsBo.findByType("Stock");
 
+      for (int x = 0; x < stockRows.size(); x++)
+      {
+        Assets stock = (Assets) stockRows.get(x);
+        System.out.println("Name: " + stock.getName() + ",  Symbol: " + stock.getSymbol() + ", Type: " + stock.getType());
+        addYahooStockHistoryToHistoricalPrices(stock.getSymbol() );
+      }
 /*      assets.setName("stockSymbol");
       assets.setSymbol("JJJOOOO");
       try

@@ -21,20 +21,6 @@ public class Assets implements Serializable {
 	private String costFreq;
 	private Date lastUpdated;
 
-
-/*	private String name;
-	private String type;
-	private String symbol;
-	private int totalQuantity;
-	private double price;
-	private double valuation;
-	private String incomeFreq;
-	private double income;
-	private double cost;
-	private String costFreq;
-	private Date lastUpdated;*/
-
-
 	public Assets() {
 	}
 
