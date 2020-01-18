@@ -14,7 +14,6 @@ CREATE TABLE `HistoricalPrices` (
   `Low` decimal(10,2) DEFAULT NULL,
   `Close` decimal(10,2) DEFAULT NULL,
   `AdjClose` decimal(10,2) DEFAULT NULL,
+  `Volume` int DEFAULT NULL,
   PRIMARY KEY (`Symbol`,`DateStamp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

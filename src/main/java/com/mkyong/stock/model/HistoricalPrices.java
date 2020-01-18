@@ -16,6 +16,7 @@ public class HistoricalPrices implements Serializable {
 	private double low;
 	private double close;
 	private double adjClose;
+	private int volume;
 	public HistoricalPrices() {
 	}
 
@@ -95,6 +96,15 @@ public class HistoricalPrices implements Serializable {
 
 	public void setAdjClose(double  xPrice) {
 		this.adjClose = xPrice;
+	}
+
+
+	public int getVolume() {
+		return this.volume;
+	}
+
+	public void setVolume(int  xPrice) {
+		this.volume = xPrice;
 	}
 	@Override
 	public String toString() {

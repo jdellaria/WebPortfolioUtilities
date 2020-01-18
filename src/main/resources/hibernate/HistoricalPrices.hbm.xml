@@ -32,5 +32,8 @@
         <property name="AdjClose" type="double">
             <column name="AdjClose"   not-null="false" unique="false" />
         </property>
+        <property name="Volume" type="int">
+            <column name="Volume"   not-null="false" unique="false" />
+        </property>
     </class>
 </hibernate-mapping>
