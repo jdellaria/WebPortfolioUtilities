@@ -10,6 +10,6 @@ public interface AssetsBo {
 
 	void delete(Assets stock);
 
-	Assets findByStockCode(String stockCode);
+	Assets findByStockId(String stockCode);
 
 }

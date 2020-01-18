@@ -5,14 +5,14 @@
 <hibernate-mapping>
     <class name="com.mkyong.stock.model.Assets" table="Assets" catalog="mkyong">
         <id name="stockId" type="java.lang.Long">
-            <column name="STOCK_ID" />
+            <column name="ID" />
             <generator class="identity" />
         </id>
         <property name="Symbol" type="string">
-            <column name="Symbol" length="10" not-null="true" unique="true" />
+            <column name="Symbol" length="10" not-null="false" unique="true" />
         </property>
         <property name="Name" type="string">
-            <column name="Name" length="255" not-null="true" unique="true" />
+            <column name="Name" length="255" not-null="false" unique="true" />
         </property>
         <property name="Type" type="string">
             <column name="Type" length="255" not-null="false" unique="false" />
@@ -30,10 +30,10 @@
             <column name="IncomeFreq" length="255" not-null="false" unique="false" />
         </property>
         <property name="Income" type="double">
-            <column name="Income" not-null="true" unique="false" />
+            <column name="Income" not-null="false" unique="false" />
         </property>
         <property name="Cost" type="double">
-            <column name="Cost" not-null="true" unique="false" />
+            <column name="Cost" not-null="false" unique="false" />
         </property>
         <property name="CostFreq" type="string">
             <column name="CostFreq" length="255" not-null="false" unique="false" />

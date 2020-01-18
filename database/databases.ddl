@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `Assets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Assets` (
-  `STOCK_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) DEFAULT NULL,
   `Type` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Symbol` varchar(10) DEFAULT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE `Assets` (
   `Cost` decimal(10,2) DEFAULT NULL,
   `CostFreq` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastUpdated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`STOCK_ID`) USING BTREE
+  PRIMARY KEY (`ID`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

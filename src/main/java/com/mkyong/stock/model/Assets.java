@@ -12,6 +12,19 @@ public class Assets implements Serializable {
 	private String name;
 	private String type;
 	private String symbol;
+	private Integer totalQuantity;
+	private Double price;
+	private Double valuation;
+	private String incomeFreq;
+	private Double income;
+	private Double cost;
+	private String costFreq;
+	private Date lastUpdated;
+
+
+/*	private String name;
+	private String type;
+	private String symbol;
 	private int totalQuantity;
 	private double price;
 	private double valuation;
@@ -19,7 +32,8 @@ public class Assets implements Serializable {
 	private double income;
 	private double cost;
 	private String costFreq;
-	private Date lastUpdated;
+	private Date lastUpdated;*/
+
 
 	public Assets() {
 	}
@@ -65,23 +79,23 @@ public class Assets implements Serializable {
 		return this.totalQuantity;
 	}
 
-	public void setTotalQuantity(int xQuantity) {
+	public void setTotalQuantity(Integer xQuantity) {
 		this.totalQuantity = xQuantity;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(double xPrice) {
+	public void setPrice(Double xPrice) {
 		this.price = xPrice;
 	}
 
-	public double getValuation() {
+	public Double getValuation() {
 		return this.valuation;
 	}
 
-	public void setValuation(double xValuation) {
+	public void setValuation(Double xValuation) {
 		this.valuation = xValuation;
 	}
 
@@ -93,19 +107,19 @@ public class Assets implements Serializable {
 		this.incomeFreq = xIncomeFreq;
 	}
 
-	public double getIncome() {
+	public Double getIncome() {
 		return this.income;
 	}
 
-	public void setIncome(double xIncome) {
+	public void setIncome(Double xIncome) {
 		this.income = xIncome;
 	}
 
-	public double getCost() {
+	public Double getCost() {
 		return this.cost;
 	}
 
-	public void setCost(double xCost) {
+	public void setCost(Double xCost) {
 		this.cost = xCost;
 	}
 

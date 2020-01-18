@@ -24,7 +24,7 @@ public class AssetsBoImpl implements AssetsBo{
 		assetsDao.delete(stock);
 	}
 
-	public Assets findByStockCode(String stockCode){
-		return assetsDao.findByStockCode(stockCode);
+	public Assets findByStockId(String stockCode){
+		return assetsDao.findByStockId(stockCode);
 	}
 }

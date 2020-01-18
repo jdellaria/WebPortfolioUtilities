@@ -21,8 +21,8 @@ public class AssetsDaoImpl extends HibernateDaoSupport implements AssetsDao{
 		getHibernateTemplate().delete(stock);
 	}
 
-	public Assets findByStockCode(String stockCode){
-		List list = getHibernateTemplate().find("from Assets where stockCode=?",stockCode);
+	public Assets findByStockId(String stockCode){
+		List list = getHibernateTemplate().find("from Assets where ID=?",stockCode);
 		return (Assets)list.get(0);
 	}
 

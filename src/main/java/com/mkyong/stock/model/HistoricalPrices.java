@@ -11,12 +11,12 @@ public class HistoricalPrices implements Serializable {
 	private String symbol;
 	private String timeStamp;
 	private Date dateStamp;
-	private double open;
-	private double high;
-	private double low;
-	private double close;
-	private double adjClose;
-	private int volume;
+	private Double open;
+	private Double high;
+	private Double low;
+	private Double close;
+	private Double adjClose;
+	private Integer volume;
 	public HistoricalPrices() {
 	}
 
@@ -58,52 +58,52 @@ public class HistoricalPrices implements Serializable {
 	}
 
 
-	public double getOpen() {
+	public Double getOpen() {
 		return this.open;
 	}
 
-	public void setOpen(double  xPrice) {
+	public void setOpen(Double  xPrice) {
 		this.open = xPrice;
 	}
 
-	public double getHigh() {
+	public Double getHigh() {
 		return this.high;
 	}
 
-	public void setHigh(double  xPrice) {
+	public void setHigh(Double  xPrice) {
 		this.high = xPrice;
 	}
 
-	public double getLow() {
+	public Double getLow() {
 		return this.low;
 	}
 
-	public void setLow(double  xPrice) {
+	public void setLow(Double  xPrice) {
 		this.low = xPrice;
 	}
 
-	public double getClose() {
+	public Double getClose() {
 		return this.close;
 	}
 
-	public void setClose(double  xPrice) {
+	public void setClose(Double  xPrice) {
 		this.close = xPrice;
 	}
 
-	public double getAdjClose() {
+	public Double getAdjClose() {
 		return this.adjClose;
 	}
 
-	public void setAdjClose(double  xPrice) {
+	public void setAdjClose(Double  xPrice) {
 		this.adjClose = xPrice;
 	}
 
 
-	public int getVolume() {
+	public Integer getVolume() {
 		return this.volume;
 	}
 
-	public void setVolume(int  xPrice) {
+	public void setVolume(Integer  xPrice) {
 		this.volume = xPrice;
 	}
 	@Override
