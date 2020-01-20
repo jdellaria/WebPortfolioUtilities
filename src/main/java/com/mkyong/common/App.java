@@ -39,6 +39,9 @@ import java.util.Date;
 
 import java.util.List;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 public class App
 {
   static ApplicationContext appContext =	new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
@@ -65,48 +68,43 @@ public class App
     }
 
 
+
     public static void main( String[] args )
+    {
+      addLatestYahooHistoricalPricesForAllStocks( );
+    }
+
+    public static void addLatestYahooHistoricalPricesForAllStocks( )
     {
       AssetsBo assetsBo = (AssetsBo)appContext.getBean("assetsBo");
 //      Assets assets = new Assets();
 
-      Assets stock2 = assetsBo.findByStockId("3");
-      System.out.println(stock2);
-
       List <?> stockRows = assetsBo.findByType("Stock");
-
       for (int x = 0; x < stockRows.size(); x++)
       {
         Assets stock = (Assets) stockRows.get(x);
         System.out.println("Name: " + stock.getName() + ",  Symbol: " + stock.getSymbol() + ", Type: " + stock.getType());
         addYahooStockHistoryToHistoricalPrices(stock.getSymbol() );
+        Wait20To60Seconds();
       }
-/*      assets.setName("stockSymbol");
-      assets.setSymbol("JJJOOOO");
-      try
-      {
-        assetsBo.save(assets);
-      }
-
-      catch (org.springframework.dao.DataIntegrityViolationException ex)
-      {
-        System.out.println("DataIntegrityViolationException Exception!!");
-        System.out.println(ex);
-      }
-      catch (HibernateException ex)
-      {
-        System.out.println("Hibernate Exception!!");
-        System.out.println(ex);
-      }
-      catch (Exception ex)
-      {
-        System.out.println("Exception Exception!!");
-        System.out.println(ex);
-      }*/
-
-  //    addYahooStockHistoryToHistoricalPrices("PEGA"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
-
     }
+
+    public  static void Wait20To60Seconds()
+  	{
+  		Random objGenerator = new Random();
+  		int randomNumber = objGenerator.nextInt(40);
+  		randomNumber = randomNumber +20;
+  		System.out.println("Random No : " + randomNumber);
+  		try
+  		{
+  			TimeUnit.SECONDS.sleep(randomNumber);
+  		} catch (InterruptedException e)
+  		{
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  	}
+
 
     public static void addYahooStockHistoryToHistoricalPrices( String stockSymbol )
     {
@@ -155,18 +153,6 @@ public class App
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/STI.csv");
       addStockToHistoricalPrices("STI",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
 
-/*      for (int x = 0; x < rowsString.size(); x++)
-       {
-         String[] column = rowsString.get(x);
-         try
-         {
-           System.out.println("AIG [date= " + column[0] + ",  dFormat= " + StringToDate( "yyyy-mm-dd", column[0]) + ", Open=" + column[1] +  " , High=" + column[2] +  " , Low=" + column[3] +  " , Close=" + column[4] + " , AdjClose=" + column[5] + " , Volume=" + column[6] +   "]");
-         }
-         catch (Exception ex)
-           {
-             System.out.println("Date Exception!!");
-           }
-       }*/
      }
 
      public static void addStockToHistoricalPrices(String stockSymbol, List<String[]> rows, String dateFormat)
@@ -193,12 +179,14 @@ public class App
           {
             System.out.println("Date Exception!!");
           }
-          historicalPrices.setOpen(Double.parseDouble(column[1].replaceAll(",", "")));
-          historicalPrices.setHigh(Double.parseDouble(column[2].replaceAll(",", "")));
-          historicalPrices.setLow(Double.parseDouble(column[3].replaceAll(",", "")));
-          historicalPrices.setClose(Double.parseDouble(column[4].replaceAll(",", "")));
-          historicalPrices.setAdjClose(Double.parseDouble(column[5].replaceAll(",", "")));
-          historicalPrices.setVolume(Integer.parseInt(column[6].replaceAll(",", "")));
+          historicalPrices.setOpen(column[1]);
+          historicalPrices.setHigh(column[2]);
+          historicalPrices.setLow(column[3]);
+          historicalPrices.setClose(column[4]);
+          historicalPrices.setAdjClose(column[5]);
+//          historicalPrices.setVolume(Integer.parseInt(column[6].replaceAll("-,", "")));
+          historicalPrices.setVolume(column[6]);
+
           try
           {
             historicalPricesBo.save(historicalPrices);

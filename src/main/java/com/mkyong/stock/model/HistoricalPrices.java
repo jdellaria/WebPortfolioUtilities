@@ -66,12 +66,20 @@ public class HistoricalPrices implements Serializable {
 		this.open = xPrice;
 	}
 
+	public void setOpen(String  xPrice) {
+		this.open = stringToDouble(xPrice);;
+	}
+
 	public Double getHigh() {
 		return this.high;
 	}
 
 	public void setHigh(Double  xPrice) {
 		this.high = xPrice;
+	}
+
+	public void setHigh(String  xPrice) {
+		this.high = stringToDouble(xPrice);;
 	}
 
 	public Double getLow() {
@@ -82,12 +90,20 @@ public class HistoricalPrices implements Serializable {
 		this.low = xPrice;
 	}
 
+	public void setLow(String  xPrice) {
+		this.low = stringToDouble(xPrice);;
+	}
+
 	public Double getClose() {
 		return this.close;
 	}
 
 	public void setClose(Double  xPrice) {
 		this.close = xPrice;
+	}
+
+	public void setClose(String  xPrice) {
+		this.close = stringToDouble(xPrice);;
 	}
 
 	public Double getAdjClose() {
@@ -98,6 +114,9 @@ public class HistoricalPrices implements Serializable {
 		this.adjClose = xPrice;
 	}
 
+	public void setAdjClose(String  xPrice) {
+		this.adjClose = stringToDouble(xPrice);;
+	}
 
 	public Integer getVolume() {
 		return this.volume;
@@ -106,6 +125,32 @@ public class HistoricalPrices implements Serializable {
 	public void setVolume(Integer  xPrice) {
 		this.volume = xPrice;
 	}
+
+	public void setVolume(String  xPrice) {
+		this.volume = stringToInteger(xPrice);
+	}
+
+
+	public static Double stringToDouble(String  sPrice) {
+		String conversionString = sPrice.replaceAll(",", "");
+//			System.out.println("conversionString : " + conversionString);
+		if (conversionString.length() > 0)
+		{
+			return Double.parseDouble(conversionString);
+		}
+		return null;
+	}
+
+	public static Integer stringToInteger(String  sPrice) {
+		String conversionString = sPrice.replaceAll("[^0-9]", "");
+	//			System.out.println("conversionString : " + conversionString);
+		if (conversionString.length() > 0)
+		{
+			return Integer.parseInt(conversionString);
+		}
+		return null;
+	}
+
 	@Override
 	public String toString() {
 		return "Stock [stockSymbol=" + symbol + ", Id=" + Id
