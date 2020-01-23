@@ -71,10 +71,11 @@ public class App
 
     public static void main( String[] args )
     {
-      addLatestYahooHistoricalPricesForAllStocks( );
+//      addCSVFilesToHistoricalPrices();
+      addLatestYahooHistoricalPricesForAllStocks();
     }
 
-    public static void addLatestYahooHistoricalPricesForAllStocks( )
+    public static void addLatestYahooHistoricalPricesForAllStocks()
     {
       AssetsBo assetsBo = (AssetsBo)appContext.getBean("assetsBo");
 //      Assets assets = new Assets();
@@ -119,7 +120,7 @@ public class App
     	Elements rows = table.select("tr");
       List<String[]> rowsString = new ArrayList<String[]>();
       rowsString = HTMLElementsToListString(rows);
-      addStockToHistoricalPrices(stockSymbol,rowsString, "MMM dd, yyyy"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices(stockSymbol,rowsString, "MMM dd, yyyy", false); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
      }
 
     public static void addCSVFilesToHistoricalPrices( )
@@ -127,35 +128,35 @@ public class App
       List<String[]> rowsString = new ArrayList<String[]>();
 
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/AAPL.csv");
-      addStockToHistoricalPrices("AAPL",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("AAPL",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/ADBE.csv");
-      addStockToHistoricalPrices("ADBE",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("ADBE",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/AXP.csv");
-      addStockToHistoricalPrices("AXP",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("AXP",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/CAT.csv");
-      addStockToHistoricalPrices("CAT",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("CAT",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/CLDR.csv");
-      addStockToHistoricalPrices("CLDR",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("CLDR",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/COF.csv");
-      addStockToHistoricalPrices("COF",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("COF",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/CPWR.csv");
-      addStockToHistoricalPrices("CPWR",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("CPWR",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/F.csv");
-      addStockToHistoricalPrices("F",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("F",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/GBTC.csv");
-      addStockToHistoricalPrices("GBTC",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("GBTC",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/GE.csv");
-      addStockToHistoricalPrices("GE",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("GE",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/SBUX.csv");
-      addStockToHistoricalPrices("SBUX",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("SBUX",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/SIRI.csv");
-      addStockToHistoricalPrices("SIRI",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("SIRI",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/STI.csv");
-      addStockToHistoricalPrices("STI",rowsString, "yyyy-MM-dd"); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      addStockToHistoricalPrices("STI",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
 
      }
 
-     public static void addStockToHistoricalPrices(String stockSymbol, List<String[]> rows, String dateFormat)
+     public static void addStockToHistoricalPrices(String stockSymbol, List<String[]> rows, String dateFormat, boolean headerRow)
      {
 //       System.out.println("!!!!!!!!!!!!!!!!! Entering Application for HIBERNATE Stock !!!!!!!!!!!!!!!!!!!");
 //        ApplicationContext appContext =	new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
@@ -163,8 +164,12 @@ public class App
 
         HistoricalPricesBo historicalPricesBo = (HistoricalPricesBo)appContext.getBean("historicalPricesBo");
         HistoricalPrices historicalPrices = new HistoricalPrices();
-
-       for (int i = 0; i < rows.size(); i++)
+        int startRow = 0;
+        if (headerRow)
+        {
+          startRow = 1;
+        }
+       for (int i = startRow; i < rows.size(); i++)
        {
           String[] column = rows.get(i);
 //          System.out.printf("Date: %s Open: %s High: %s Low: %s Close: %s AdjClose: %s  Volume: %s \n", column[0], column[1], column[2], column[3], column[4], column[5], column[6]);
