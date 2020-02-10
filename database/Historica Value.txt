@@ -12,3 +12,29 @@ Drop table if exists mkyong.tHistoricalValue; CREATE TABLE mkyong.tHistoricalVal
 SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.AssetsCopy.TotalQuantity,
  (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation 
  FROM mkyong.HistoricalPrices, mkyong.AssetsCopy where ( (mkyong.HistoricalPrices.Symbol = mkyong.AssetsCopy.Symbol) and (mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and (if (mkyong.AssetsCopy.EndDate is null,current_date(),mkyong.AssetsCopy.EndDate))))
+
+
+
+SELECT symbol, DateStamp FROM mkyong.tHistoricalValue where datestamp <= stockYear group by Symbol, DateStamp LIMIT 0, 400
+
+
+Drop table if exists mkyong.tHistoricalValue; 
+CREATE TABLE mkyong.tHistoricalValue 
+SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.AssetsCopy.TotalQuantity,
+ (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation ,
+ makedate(year(mkyong.HistoricalPrices.DateStamp),4) as stockYear
+ FROM mkyong.HistoricalPrices, mkyong.AssetsCopy where ( (mkyong.HistoricalPrices.Symbol = mkyong.AssetsCopy.Symbol) and (mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and (if (mkyong.AssetsCopy.EndDate is null,current_date(),mkyong.AssetsCopy.EndDate))))
+
+
+Drop table if exists mkyong.tStockYear; 
+set @stockSymbol := '', @rowNum :=0;
+CREATE TABLE mkyong.tStockYear 
+SELECT mkyong.tHistoricalValue.Symbol, mkyong.tHistoricalValue.Close,  mkyong.tHistoricalValue.DateStamp, mkyong.tHistoricalValue.TotalQuantity,
+mkyong.tHistoricalValue.Valuation ,
+mkyong.tHistoricalValue.stockYear,
+ @rowNum := if( @stockSymbol = mkyong.tHistoricalValue.Symbol, @rowNum + 1,1) as rowNumber , @stockSymbol :=mkyong.tHistoricalValue.Symbol as dummy
+ FROM mkyong.tHistoricalValue order by mkyong.tHistoricalValue.stockYear, mkyong.tHistoricalValue.Symbol
+
+
+
+
