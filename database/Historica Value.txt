@@ -2,15 +2,15 @@ Drop table if exists mkyong.tHistoricalValue; CREATE TABLE mkyong.tHistoricalVal
 
 
 
-Drop table if exists mkyong.tHistoricalValue; CREATE TABLE mkyong.tHistoricalValue 
+Drop table if exists mkyong.tHistoricalValue; CREATE TABLE mkyong.tHistoricalValue
 SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.AssetsCopy.TotalQuantity,
- (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation 
+ (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation
  FROM mkyong.HistoricalPrices, mkyong.AssetsCopy where ( (mkyong.HistoricalPrices.Symbol = mkyong.AssetsCopy.Symbol) and (mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and mkyong.AssetsCopy.EndDate))
 
 
-Drop table if exists mkyong.tHistoricalValue; CREATE TABLE mkyong.tHistoricalValue 
+Drop table if exists mkyong.tHistoricalValue; CREATE TABLE mkyong.tHistoricalValue
 SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.AssetsCopy.TotalQuantity,
- (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation 
+ (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation
  FROM mkyong.HistoricalPrices, mkyong.AssetsCopy where ( (mkyong.HistoricalPrices.Symbol = mkyong.AssetsCopy.Symbol) and (mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and (if (mkyong.AssetsCopy.EndDate is null,current_date(),mkyong.AssetsCopy.EndDate))))
 
 
@@ -18,27 +18,27 @@ SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.Hi
 SELECT symbol, DateStamp FROM mkyong.tHistoricalValue where datestamp <= stockYear group by Symbol, DateStamp LIMIT 0, 400
 
 
-Drop table if exists mkyong.tHistoricalValue; 
-CREATE TABLE mkyong.tHistoricalValue 
+Drop table if exists mkyong.tHistoricalValue;
+CREATE TABLE mkyong.tHistoricalValue
 SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.AssetsCopy.TotalQuantity,
  (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation ,
  makedate(year(mkyong.HistoricalPrices.DateStamp),4) as stockYear
- FROM mkyong.HistoricalPrices, mkyong.AssetsCopy where ( (mkyong.HistoricalPrices.Symbol = mkyong.AssetsCopy.Symbol) and 
-(mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and (if (mkyong.AssetsCopy.EndDate is null,current_date(),mkyong.AssetsCopy.EndDate)))) 
+ FROM mkyong.HistoricalPrices, mkyong.AssetsCopy where ( (mkyong.HistoricalPrices.Symbol = mkyong.AssetsCopy.Symbol) and
+(mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and (if (mkyong.AssetsCopy.EndDate is null,current_date(),mkyong.AssetsCopy.EndDate))))
 
 
-Drop table if exists mkyong.tStockYear; 
+Drop table if exists mkyong.tStockYear;
 set @stockSymbol := '', @rowNum :=0;
-CREATE TABLE mkyong.tStockYear 
+CREATE TABLE mkyong.tStockYear
 SELECT mkyong.tHistoricalValue.Symbol, mkyong.tHistoricalValue.Close,  mkyong.tHistoricalValue.DateStamp, mkyong.tHistoricalValue.TotalQuantity,
 mkyong.tHistoricalValue.Valuation ,
 mkyong.tHistoricalValue.stockYear,
  @rowNum := if( @stockSymbol = mkyong.tHistoricalValue.Symbol, @rowNum + 1,1) as rowNumber , @stockSymbol :=mkyong.tHistoricalValue.Symbol as dummy
  FROM mkyong.tHistoricalValue order by mkyong.tHistoricalValue.stockYear, mkyong.tHistoricalValue.Symbol
 
-Drop table if exists mkyong.tStockYear; 
+Drop table if exists mkyong.tStockYear;
 set @stockSymbol := '', @rowNum :=0, @dummyYear :='1960-01-01';
-CREATE TABLE mkyong.tStockYear 
+CREATE TABLE mkyong.tStockYear
 SELECT mkyong.tHistoricalValue.Symbol, mkyong.tHistoricalValue.Close,  mkyong.tHistoricalValue.DateStamp, mkyong.tHistoricalValue.TotalQuantity,
 mkyong.tHistoricalValue.Valuation ,
 mkyong.tHistoricalValue.stockYear,
@@ -47,14 +47,40 @@ mkyong.tHistoricalValue.stockYear,
  @dummyYear := mkyong.tHistoricalValue.stockYear
 FROM mkyong.tHistoricalValue order by mkyong.tHistoricalValue.symbol, mkyong.tHistoricalValue.DateStamp asc
 
-Drop table if exists mkyong.tStockPercentage; 
+Drop table if exists mkyong.tStockPercentage;
 set @stockYearCloseJan1 := '', @rowNum :=0;
-CREATE TABLE mkyong.tStockPercentage 
+CREATE TABLE mkyong.tStockPercentage
 SELECT mkyong.tStockYear.Symbol, mkyong.tStockYear.Close,  mkyong.tStockYear.DateStamp, mkyong.tStockYear.TotalQuantity,
 mkyong.tStockYear.Valuation , mkyong.tStockYear.stockYear, mkyong.tStockYear.rowNumber,
 @stockYearCloseJan1 := if( mkyong.tStockYear.rowNumber = 1, mkyong.tStockYear.Close,@stockYearCloseJan1) as YearStartClose ,
-( (mkyong.tStockYear.Close - @stockYearCloseJan1)/@stockYearCloseJan1) as YTDPercentage 
+( (mkyong.tStockYear.Close - @stockYearCloseJan1)/@stockYearCloseJan1) as YTDPercentage
 FROM mkyong.tStockYear order by Symbol, DateStamp asc
+
+
+Drop table if exists mkyong.tHistoricalYear;
+CREATE TABLE mkyong.tHistoricalYear
+SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp,
+makedate(year(mkyong.HistoricalPrices.DateStamp),4) as stockYear
+ FROM mkyong.HistoricalPrices order by mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.DateStamp
+
+ Drop table if exists mkyong.tStockYear;
+ set @stockSymbol := '', @rowNum :=0, @dummyYear :='1960-01-01';
+ CREATE TABLE mkyong.tStockYear
+ SELECT mkyong.tHistoricalYear.Symbol, mkyong.tHistoricalYear.Close,  mkyong.tHistoricalYear.DateStamp,
+ mkyong.tHistoricalYear.stockYear,
+ @rowNum := if( ( (@dummyYear = mkyong.tHistoricalYear.stockYear )), @rowNum + 1,1) as rowNumber ,
+ @stockSymbol :=mkyong.tHistoricalYear.Symbol as dummy,
+  @dummyYear := mkyong.tHistoricalYear.stockYear as dummyYear
+ FROM mkyong.tHistoricalYear order by mkyong.tHistoricalYear.symbol, mkyong.tHistoricalYear.DateStamp asc
+
+ Drop table if exists mkyong.tStockPercentage;
+ set @stockYearCloseJan1 := '', @rowNum :=0;
+ CREATE TABLE mkyong.tStockPercentage
+ SELECT mkyong.tStockYear.Symbol, mkyong.tStockYear.Close,  mkyong.tStockYear.DateStamp,
+  mkyong.tStockYear.stockYear, mkyong.tStockYear.rowNumber,
+ @stockYearCloseJan1 := if( mkyong.tStockYear.rowNumber = 1, mkyong.tStockYear.Close,@stockYearCloseJan1) as YearStartClose ,
+ ( (mkyong.tStockYear.Close - @stockYearCloseJan1)/@stockYearCloseJan1) as YTDPercentage
+ FROM mkyong.tStockYear order by Symbol, DateStamp asc
 
 ---------------------------
 
@@ -62,12 +88,7 @@ set @stockYearCloseJan1 := '', @rowNum :=0;
 SELECT mkyong.tStockYear.Symbol, mkyong.tStockYear.Close,  mkyong.tStockYear.DateStamp, mkyong.tStockYear.TotalQuantity,
 mkyong.tStockYear.Valuation , mkyong.tStockYear.stockYear, mkyong.tStockYear.rowNumber,
 @stockYearCloseJan1 := if( mkyong.tStockYear.rowNumber = 1, mkyong.tStockYear.Close,@stockYearCloseJan1) as YearStartClose ,
-( mkyong.tStockYear.Close - @stockYearCloseJan1) as YTDDifference 
+( mkyong.tStockYear.Close - @stockYearCloseJan1) as YTDDifference
 FROM mkyong.tStockYear order by Symbol, DateStamp asc
 
 ;
-
-
-
-
-
