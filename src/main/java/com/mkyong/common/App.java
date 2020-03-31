@@ -73,6 +73,18 @@ public class App
     {
 //      addCSVFilesToHistoricalPrices();
       addLatestYahooHistoricalPricesForAllStocks();
+//      addYahooStockHistoryToHistoricalPrices("CPWR");
+
+//      addYahooStockHistoryToHistoricalPrices("F");
+//      addYahooStockHistoryToHistoricalPrices("CAT");
+//      addYahooStockHistoryToHistoricalPrices("AIG");
+//      addYahooStockHistoryToHistoricalPrices("GE");
+//      addYahooStockHistoryToHistoricalPrices("AXP");
+//      addYahooStockHistoryToHistoricalPrices("SBUX");
+//      addYahooStockHistoryToHistoricalPrices("AAPL");
+//      addYahooStockHistoryToHistoricalPrices("ADBE");
+//      addYahooStockHistoryToHistoricalPrices("CLDR");
+
     }
 
     public static void addLatestYahooHistoricalPricesForAllStocks()
@@ -172,7 +184,7 @@ public class App
        for (int i = startRow; i < rows.size(); i++)
        {
           String[] column = rows.get(i);
-//          System.out.printf("Date: %s Open: %s High: %s Low: %s Close: %s AdjClose: %s  Volume: %s \n", column[0], column[1], column[2], column[3], column[4], column[5], column[6]);
+          System.out.printf("Date: %s Open: %s High: %s Low: %s Close: %s AdjClose: %s  Volume: %s \n", column[0], column[1], column[2], column[3], column[4], column[5], column[6]);
 
           historicalPrices.setSymbol(stockSymbol);
           historicalPrices.setTimeStamp(column[0]);

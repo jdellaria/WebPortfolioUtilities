@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `HistoricalPrices`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `HistoricalPrices` (
-  `ID` int(10) DEFAULT NULL,
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
   `Symbol` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `DateStamp` datetime NOT NULL,
   `StringTimeStamp` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
