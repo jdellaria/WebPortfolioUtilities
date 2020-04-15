@@ -132,7 +132,8 @@ public class HistoricalPrices implements Serializable {
 
 
 	public static Double stringToDouble(String  sPrice) {
-		String conversionString = sPrice.replaceAll(",", "");
+		String conversionString = sPrice.replaceAll("[^0-9.]", "");
+//		conversionString = conversionString.replaceAll("-", "");
 //			System.out.println("conversionString : " + conversionString);
 		if (conversionString.length() > 0)
 		{

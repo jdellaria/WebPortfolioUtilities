@@ -71,8 +71,17 @@ public class App
 
     public static void main( String[] args )
     {
+//      test();
 //      addCSVFilesToHistoricalPrices();
       addLatestYahooHistoricalPricesForAllStocks();
+//      addYahooStockHistoryToHistoricalPrices("STI");
+//      addYahooStockHistoryToHistoricalPrices("TFC");
+
+//      addYahooStockHistoryToHistoricalPrices("SBUX");
+//      addYahooStockHistoryToHistoricalPrices("AAPL");
+//      addYahooStockHistoryToHistoricalPrices("ADBE");
+
+//      addYahooStockHistoryToHistoricalPrices("CLDR");
 //      addYahooStockHistoryToHistoricalPrices("CPWR");
 
 //      addYahooStockHistoryToHistoricalPrices("F");
@@ -80,12 +89,27 @@ public class App
 //      addYahooStockHistoryToHistoricalPrices("AIG");
 //      addYahooStockHistoryToHistoricalPrices("GE");
 //      addYahooStockHistoryToHistoricalPrices("AXP");
-//      addYahooStockHistoryToHistoricalPrices("SBUX");
-//      addYahooStockHistoryToHistoricalPrices("AAPL");
-//      addYahooStockHistoryToHistoricalPrices("ADBE");
-//      addYahooStockHistoryToHistoricalPrices("CLDR");
 
     }
+
+
+      public static void test()
+      {
+        AssetsBo assetsBo = (AssetsBo)appContext.getBean("assetsBo");
+  //      Assets assets = new Assets();
+
+        List <?> stockRows = assetsBo.findByType("Stock");
+        for (int x = 0; x < stockRows.size(); x++)
+        {
+          Assets stock = (Assets) stockRows.get(x);
+          if(stock.getEndDate() == null ) // only get active stocks
+          {
+            System.out.println("Name: " + stock.getName() + ",  Symbol: " + stock.getSymbol() + ", Type: " + stock.getType() + ", Start Date: " + stock.getStartDate() + ", End Date: " + stock.getEndDate()  );
+          }
+//          addYahooStockHistoryToHistoricalPrices(stock.getSymbol() );
+//          Wait20To60Seconds();
+        }
+      }
 
     public static void addLatestYahooHistoricalPricesForAllStocks()
     {
@@ -96,9 +120,13 @@ public class App
       for (int x = 0; x < stockRows.size(); x++)
       {
         Assets stock = (Assets) stockRows.get(x);
-        System.out.println("Name: " + stock.getName() + ",  Symbol: " + stock.getSymbol() + ", Type: " + stock.getType());
-        addYahooStockHistoryToHistoricalPrices(stock.getSymbol() );
-        Wait20To60Seconds();
+
+        if(stock.getEndDate() == null ) // only get active stocks
+        {
+          System.out.println("Name: " + stock.getName() + ",  Symbol: " + stock.getSymbol() + ", Type: " + stock.getType());
+          addYahooStockHistoryToHistoricalPrices(stock.getSymbol() );
+          Wait20To60Seconds();
+        }
       }
     }
 
@@ -165,6 +193,8 @@ public class App
       addStockToHistoricalPrices("SIRI",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
       rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/STI.csv");
       addStockToHistoricalPrices("STI",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
+      rowsString = parseCSV("/home/jdellaria/Desktop/HistoricalPrices/TFC.csv");
+      addStockToHistoricalPrices("STI",rowsString, "yyyy-MM-dd", true); // Lowercase y is Year-  Upper case M is Month - Lowercase d is Day
 
      }
 
@@ -203,6 +233,10 @@ public class App
           historicalPrices.setAdjClose(column[5]);
 //          historicalPrices.setVolume(Integer.parseInt(column[6].replaceAll("-,", "")));
           historicalPrices.setVolume(column[6]);
+          if (historicalPrices.getOpen() == null)
+          {
+            System.out.println("Open is null!!");
+          }
 
           try
           {

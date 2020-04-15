@@ -37,6 +37,19 @@ SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.Hi
 (mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and (if (mkyong.AssetsCopy.EndDate is null,current_date(),mkyong.AssetsCopy.EndDate))))
 
 
+updated to Assets from AssetsCopy
+
+Drop table if exists mkyong.tHistoricalValue;
+CREATE TABLE mkyong.tHistoricalValue (`ID` int(10) unsigned NOT NULL AUTO_INCREMENT UNIQUE)
+SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.Assets.TotalQuantity,
+ (select mkyong.HistoricalPrices.Close * mkyong.Assets.TotalQuantity) as Valuation ,
+ makedate(year(mkyong.HistoricalPrices.DateStamp),4) as stockYear
+ FROM mkyong.HistoricalPrices, mkyong.Assets where ( (mkyong.HistoricalPrices.Symbol = mkyong.Assets.Symbol) and
+(mkyong.HistoricalPrices.DateStamp between mkyong.Assets.StartDate and (if (mkyong.Assets.EndDate is null,current_date(),mkyong.Assets.EndDate))))
+
+
+
+
 
 CREATE TABLE tv3 (a INT, b INT, c INT)
 

@@ -41,5 +41,11 @@
         <property name="LastUpdated" type="date">
             <column name="LastUpdated" not-null="false" unique="false" />
         </property>
+        <property name="StartDate" type="date">
+            <column name="StartDate" not-null="false" unique="false" />
+        </property>
+        <property name="EndDate" type="date">
+            <column name="EndDate" not-null="false" unique="false" />
+        </property>
     </class>
 </hibernate-mapping>

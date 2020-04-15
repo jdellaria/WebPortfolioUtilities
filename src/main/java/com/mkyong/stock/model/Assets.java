@@ -20,7 +20,8 @@ public class Assets implements Serializable {
 	private Double cost;
 	private String costFreq;
 	private Date lastUpdated;
-
+	private Date startDate;
+	private Date endDate;
 	public Assets() {
 	}
 
@@ -123,6 +124,22 @@ public class Assets implements Serializable {
 
 	public void setLastUpdated(Date xLastUpdated) {
 		this.lastUpdated = xLastUpdated;
+	}
+
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	public void setStartDate(Date xEndDate) {
+		this.startDate = xEndDate;
+	}
+
+	public Date getEndDate() {
+		return this.endDate;
+	}
+
+	public void setEndDate(Date xStartDate) {
+		this.endDate = xStartDate;
 	}
 
 	@Override
