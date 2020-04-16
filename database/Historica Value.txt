@@ -1,51 +1,51 @@
-Drop table if exists mkyong.tHistoricalValue; CREATE TABLE mkyong.tHistoricalValue SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.Assets.TotalQuantity, (select mkyong.HistoricalPrices.Close * mkyong.Assets.TotalQuantity) as Valuation  FROM mkyong.HistoricalPrices, mkyong.Assets where mkyong.HistoricalPrices.Symbol = mkyong.Assets.Symbol;
+Drop table if exists Portfolio.tHistoricalValue; CREATE TABLE Portfolio.tHistoricalValue SELECT Portfolio.HistoricalPrices.Symbol, Portfolio.HistoricalPrices.Close,  Portfolio.HistoricalPrices.DateStamp, Portfolio.Assets.TotalQuantity, (select Portfolio.HistoricalPrices.Close * Portfolio.Assets.TotalQuantity) as Valuation  FROM Portfolio.HistoricalPrices, Portfolio.Assets where Portfolio.HistoricalPrices.Symbol = Portfolio.Assets.Symbol;
 
 
 
-Drop table if exists mkyong.tHistoricalValue; CREATE TABLE mkyong.tHistoricalValue
-SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.AssetsCopy.TotalQuantity,
- (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation
- FROM mkyong.HistoricalPrices, mkyong.AssetsCopy where ( (mkyong.HistoricalPrices.Symbol = mkyong.AssetsCopy.Symbol) and (mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and mkyong.AssetsCopy.EndDate))
+Drop table if exists Portfolio.tHistoricalValue; CREATE TABLE Portfolio.tHistoricalValue
+SELECT Portfolio.HistoricalPrices.Symbol, Portfolio.HistoricalPrices.Close,  Portfolio.HistoricalPrices.DateStamp, Portfolio.AssetsCopy.TotalQuantity,
+ (select Portfolio.HistoricalPrices.Close * Portfolio.AssetsCopy.TotalQuantity) as Valuation
+ FROM Portfolio.HistoricalPrices, Portfolio.AssetsCopy where ( (Portfolio.HistoricalPrices.Symbol = Portfolio.AssetsCopy.Symbol) and (Portfolio.HistoricalPrices.DateStamp between Portfolio.AssetsCopy.StartDate and Portfolio.AssetsCopy.EndDate))
 
 
-Drop table if exists mkyong.tHistoricalValue; CREATE TABLE mkyong.tHistoricalValue
-SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.AssetsCopy.TotalQuantity,
- (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation
- FROM mkyong.HistoricalPrices, mkyong.AssetsCopy where ( (mkyong.HistoricalPrices.Symbol = mkyong.AssetsCopy.Symbol) and (mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and (if (mkyong.AssetsCopy.EndDate is null,current_date(),mkyong.AssetsCopy.EndDate))))
-
-
-
-SELECT symbol, DateStamp FROM mkyong.tHistoricalValue where datestamp <= stockYear group by Symbol, DateStamp LIMIT 0, 400
-
-
-Drop table if exists mkyong.tHistoricalValue;
-CREATE TABLE mkyong.tHistoricalValue
-SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.AssetsCopy.TotalQuantity,
- (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation ,
- makedate(year(mkyong.HistoricalPrices.DateStamp),4) as stockYear
- FROM mkyong.HistoricalPrices, mkyong.AssetsCopy where ( (mkyong.HistoricalPrices.Symbol = mkyong.AssetsCopy.Symbol) and
-(mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and (if (mkyong.AssetsCopy.EndDate is null,current_date(),mkyong.AssetsCopy.EndDate))))
+Drop table if exists Portfolio.tHistoricalValue; CREATE TABLE Portfolio.tHistoricalValue
+SELECT Portfolio.HistoricalPrices.Symbol, Portfolio.HistoricalPrices.Close,  Portfolio.HistoricalPrices.DateStamp, Portfolio.AssetsCopy.TotalQuantity,
+ (select Portfolio.HistoricalPrices.Close * Portfolio.AssetsCopy.TotalQuantity) as Valuation
+ FROM Portfolio.HistoricalPrices, Portfolio.AssetsCopy where ( (Portfolio.HistoricalPrices.Symbol = Portfolio.AssetsCopy.Symbol) and (Portfolio.HistoricalPrices.DateStamp between Portfolio.AssetsCopy.StartDate and (if (Portfolio.AssetsCopy.EndDate is null,current_date(),Portfolio.AssetsCopy.EndDate))))
 
 
 
-Drop table if exists mkyong.tHistoricalValue;
-CREATE TABLE mkyong.tHistoricalValue (`ID` int(10) unsigned NOT NULL AUTO_INCREMENT UNIQUE)
-SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.AssetsCopy.TotalQuantity,
- (select mkyong.HistoricalPrices.Close * mkyong.AssetsCopy.TotalQuantity) as Valuation ,
- makedate(year(mkyong.HistoricalPrices.DateStamp),4) as stockYear
- FROM mkyong.HistoricalPrices, mkyong.AssetsCopy where ( (mkyong.HistoricalPrices.Symbol = mkyong.AssetsCopy.Symbol) and
-(mkyong.HistoricalPrices.DateStamp between mkyong.AssetsCopy.StartDate and (if (mkyong.AssetsCopy.EndDate is null,current_date(),mkyong.AssetsCopy.EndDate))))
+SELECT symbol, DateStamp FROM Portfolio.tHistoricalValue where datestamp <= stockYear group by Symbol, DateStamp LIMIT 0, 400
+
+
+Drop table if exists Portfolio.tHistoricalValue;
+CREATE TABLE Portfolio.tHistoricalValue
+SELECT Portfolio.HistoricalPrices.Symbol, Portfolio.HistoricalPrices.Close,  Portfolio.HistoricalPrices.DateStamp, Portfolio.AssetsCopy.TotalQuantity,
+ (select Portfolio.HistoricalPrices.Close * Portfolio.AssetsCopy.TotalQuantity) as Valuation ,
+ makedate(year(Portfolio.HistoricalPrices.DateStamp),4) as stockYear
+ FROM Portfolio.HistoricalPrices, Portfolio.AssetsCopy where ( (Portfolio.HistoricalPrices.Symbol = Portfolio.AssetsCopy.Symbol) and
+(Portfolio.HistoricalPrices.DateStamp between Portfolio.AssetsCopy.StartDate and (if (Portfolio.AssetsCopy.EndDate is null,current_date(),Portfolio.AssetsCopy.EndDate))))
+
+
+
+Drop table if exists Portfolio.tHistoricalValue;
+CREATE TABLE Portfolio.tHistoricalValue (`ID` int(10) unsigned NOT NULL AUTO_INCREMENT UNIQUE)
+SELECT Portfolio.HistoricalPrices.Symbol, Portfolio.HistoricalPrices.Close,  Portfolio.HistoricalPrices.DateStamp, Portfolio.AssetsCopy.TotalQuantity,
+ (select Portfolio.HistoricalPrices.Close * Portfolio.AssetsCopy.TotalQuantity) as Valuation ,
+ makedate(year(Portfolio.HistoricalPrices.DateStamp),4) as stockYear
+ FROM Portfolio.HistoricalPrices, Portfolio.AssetsCopy where ( (Portfolio.HistoricalPrices.Symbol = Portfolio.AssetsCopy.Symbol) and
+(Portfolio.HistoricalPrices.DateStamp between Portfolio.AssetsCopy.StartDate and (if (Portfolio.AssetsCopy.EndDate is null,current_date(),Portfolio.AssetsCopy.EndDate))))
 
 
 updated to Assets from AssetsCopy
 
-Drop table if exists mkyong.tHistoricalValue;
-CREATE TABLE mkyong.tHistoricalValue (`ID` int(10) unsigned NOT NULL AUTO_INCREMENT UNIQUE)
-SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp, mkyong.Assets.TotalQuantity,
- (select mkyong.HistoricalPrices.Close * mkyong.Assets.TotalQuantity) as Valuation ,
- makedate(year(mkyong.HistoricalPrices.DateStamp),4) as stockYear
- FROM mkyong.HistoricalPrices, mkyong.Assets where ( (mkyong.HistoricalPrices.Symbol = mkyong.Assets.Symbol) and
-(mkyong.HistoricalPrices.DateStamp between mkyong.Assets.StartDate and (if (mkyong.Assets.EndDate is null,current_date(),mkyong.Assets.EndDate))))
+Drop table if exists Portfolio.tHistoricalValue;
+CREATE TABLE Portfolio.tHistoricalValue (`ID` int(10) unsigned NOT NULL AUTO_INCREMENT UNIQUE)
+SELECT Portfolio.HistoricalPrices.Symbol, Portfolio.HistoricalPrices.Close,  Portfolio.HistoricalPrices.DateStamp, Portfolio.Assets.TotalQuantity,
+ (select Portfolio.HistoricalPrices.Close * Portfolio.Assets.TotalQuantity) as Valuation ,
+ makedate(year(Portfolio.HistoricalPrices.DateStamp),4) as stockYear
+ FROM Portfolio.HistoricalPrices, Portfolio.Assets where ( (Portfolio.HistoricalPrices.Symbol = Portfolio.Assets.Symbol) and
+(Portfolio.HistoricalPrices.DateStamp between Portfolio.Assets.StartDate and (if (Portfolio.Assets.EndDate is null,current_date(),Portfolio.Assets.EndDate))))
 
 
 
@@ -53,68 +53,68 @@ SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.Hi
 
 CREATE TABLE tv3 (a INT, b INT, c INT)
 
-Drop table if exists mkyong.tStockYear;
+Drop table if exists Portfolio.tStockYear;
 set @stockSymbol := '', @rowNum :=0;
-CREATE TABLE mkyong.tStockYear
-SELECT mkyong.tHistoricalValue.Symbol, mkyong.tHistoricalValue.Close,  mkyong.tHistoricalValue.DateStamp, mkyong.tHistoricalValue.TotalQuantity,
-mkyong.tHistoricalValue.Valuation ,
-mkyong.tHistoricalValue.stockYear,
- @rowNum := if( @stockSymbol = mkyong.tHistoricalValue.Symbol, @rowNum + 1,1) as rowNumber , @stockSymbol :=mkyong.tHistoricalValue.Symbol as dummy
- FROM mkyong.tHistoricalValue order by mkyong.tHistoricalValue.stockYear, mkyong.tHistoricalValue.Symbol
+CREATE TABLE Portfolio.tStockYear
+SELECT Portfolio.tHistoricalValue.Symbol, Portfolio.tHistoricalValue.Close,  Portfolio.tHistoricalValue.DateStamp, Portfolio.tHistoricalValue.TotalQuantity,
+Portfolio.tHistoricalValue.Valuation ,
+Portfolio.tHistoricalValue.stockYear,
+ @rowNum := if( @stockSymbol = Portfolio.tHistoricalValue.Symbol, @rowNum + 1,1) as rowNumber , @stockSymbol :=Portfolio.tHistoricalValue.Symbol as dummy
+ FROM Portfolio.tHistoricalValue order by Portfolio.tHistoricalValue.stockYear, Portfolio.tHistoricalValue.Symbol
 
-Drop table if exists mkyong.tStockYear;
+Drop table if exists Portfolio.tStockYear;
 set @stockSymbol := '', @rowNum :=0, @dummyYear :='1960-01-01';
-CREATE TABLE mkyong.tStockYear
-SELECT mkyong.tHistoricalValue.Symbol, mkyong.tHistoricalValue.Close,  mkyong.tHistoricalValue.DateStamp, mkyong.tHistoricalValue.TotalQuantity,
-mkyong.tHistoricalValue.Valuation ,
-mkyong.tHistoricalValue.stockYear,
-@rowNum := if( ( (@dummyYear = mkyong.tHistoricalValue.stockYear )), @rowNum + 1,1) as rowNumber ,
-@stockSymbol :=mkyong.tHistoricalValue.Symbol as dummy,
- @dummyYear := mkyong.tHistoricalValue.stockYear
-FROM mkyong.tHistoricalValue order by mkyong.tHistoricalValue.symbol, mkyong.tHistoricalValue.DateStamp asc
+CREATE TABLE Portfolio.tStockYear
+SELECT Portfolio.tHistoricalValue.Symbol, Portfolio.tHistoricalValue.Close,  Portfolio.tHistoricalValue.DateStamp, Portfolio.tHistoricalValue.TotalQuantity,
+Portfolio.tHistoricalValue.Valuation ,
+Portfolio.tHistoricalValue.stockYear,
+@rowNum := if( ( (@dummyYear = Portfolio.tHistoricalValue.stockYear )), @rowNum + 1,1) as rowNumber ,
+@stockSymbol :=Portfolio.tHistoricalValue.Symbol as dummy,
+ @dummyYear := Portfolio.tHistoricalValue.stockYear
+FROM Portfolio.tHistoricalValue order by Portfolio.tHistoricalValue.symbol, Portfolio.tHistoricalValue.DateStamp asc
 
-Drop table if exists mkyong.tStockPercentage;
+Drop table if exists Portfolio.tStockPercentage;
 set @stockYearCloseJan1 := '', @rowNum :=0;
-CREATE TABLE mkyong.tStockPercentage
-SELECT mkyong.tStockYear.Symbol, mkyong.tStockYear.Close,  mkyong.tStockYear.DateStamp, mkyong.tStockYear.TotalQuantity,
-mkyong.tStockYear.Valuation , mkyong.tStockYear.stockYear, mkyong.tStockYear.rowNumber,
-@stockYearCloseJan1 := if( mkyong.tStockYear.rowNumber = 1, mkyong.tStockYear.Close,@stockYearCloseJan1) as YearStartClose ,
-( (mkyong.tStockYear.Close - @stockYearCloseJan1)/@stockYearCloseJan1) as YTDPercentage
-FROM mkyong.tStockYear order by Symbol, DateStamp asc
+CREATE TABLE Portfolio.tStockPercentage
+SELECT Portfolio.tStockYear.Symbol, Portfolio.tStockYear.Close,  Portfolio.tStockYear.DateStamp, Portfolio.tStockYear.TotalQuantity,
+Portfolio.tStockYear.Valuation , Portfolio.tStockYear.stockYear, Portfolio.tStockYear.rowNumber,
+@stockYearCloseJan1 := if( Portfolio.tStockYear.rowNumber = 1, Portfolio.tStockYear.Close,@stockYearCloseJan1) as YearStartClose ,
+( (Portfolio.tStockYear.Close - @stockYearCloseJan1)/@stockYearCloseJan1) as YTDPercentage
+FROM Portfolio.tStockYear order by Symbol, DateStamp asc
 
 
-Drop table if exists mkyong.tHistoricalYear;
-CREATE TABLE mkyong.tHistoricalYear
-SELECT mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.Close,  mkyong.HistoricalPrices.DateStamp,
-makedate(year(mkyong.HistoricalPrices.DateStamp),4) as stockYear
- FROM mkyong.HistoricalPrices order by mkyong.HistoricalPrices.Symbol, mkyong.HistoricalPrices.DateStamp
+Drop table if exists Portfolio.tHistoricalYear;
+CREATE TABLE Portfolio.tHistoricalYear
+SELECT Portfolio.HistoricalPrices.Symbol, Portfolio.HistoricalPrices.Close,  Portfolio.HistoricalPrices.DateStamp,
+makedate(year(Portfolio.HistoricalPrices.DateStamp),4) as stockYear
+ FROM Portfolio.HistoricalPrices order by Portfolio.HistoricalPrices.Symbol, Portfolio.HistoricalPrices.DateStamp
 
- Drop table if exists mkyong.tStockYear;
+ Drop table if exists Portfolio.tStockYear;
  set @stockSymbol := '', @rowNum :=0, @dummyYear :='1960-01-01';
- CREATE TABLE mkyong.tStockYear
- SELECT mkyong.tHistoricalYear.Symbol, mkyong.tHistoricalYear.Close,  mkyong.tHistoricalYear.DateStamp,
- mkyong.tHistoricalYear.stockYear,
- @rowNum := if( ( (@dummyYear = mkyong.tHistoricalYear.stockYear )), @rowNum + 1,1) as rowNumber ,
- @stockSymbol :=mkyong.tHistoricalYear.Symbol as dummy,
-  @dummyYear := mkyong.tHistoricalYear.stockYear as dummyYear
- FROM mkyong.tHistoricalYear order by mkyong.tHistoricalYear.symbol, mkyong.tHistoricalYear.DateStamp asc
+ CREATE TABLE Portfolio.tStockYear
+ SELECT Portfolio.tHistoricalYear.Symbol, Portfolio.tHistoricalYear.Close,  Portfolio.tHistoricalYear.DateStamp,
+ Portfolio.tHistoricalYear.stockYear,
+ @rowNum := if( ( (@dummyYear = Portfolio.tHistoricalYear.stockYear )), @rowNum + 1,1) as rowNumber ,
+ @stockSymbol :=Portfolio.tHistoricalYear.Symbol as dummy,
+  @dummyYear := Portfolio.tHistoricalYear.stockYear as dummyYear
+ FROM Portfolio.tHistoricalYear order by Portfolio.tHistoricalYear.symbol, Portfolio.tHistoricalYear.DateStamp asc
 
- Drop table if exists mkyong.tStockPercentage;
+ Drop table if exists Portfolio.tStockPercentage;
  set @stockYearCloseJan1 := '', @rowNum :=0;
- CREATE TABLE mkyong.tStockPercentage
- SELECT mkyong.tStockYear.Symbol, mkyong.tStockYear.Close,  mkyong.tStockYear.DateStamp,
-  mkyong.tStockYear.stockYear, mkyong.tStockYear.rowNumber,
- @stockYearCloseJan1 := if( mkyong.tStockYear.rowNumber = 1, mkyong.tStockYear.Close,@stockYearCloseJan1) as YearStartClose ,
- ( (mkyong.tStockYear.Close - @stockYearCloseJan1)/@stockYearCloseJan1) as YTDPercentage
- FROM mkyong.tStockYear order by Symbol, DateStamp asc
+ CREATE TABLE Portfolio.tStockPercentage
+ SELECT Portfolio.tStockYear.Symbol, Portfolio.tStockYear.Close,  Portfolio.tStockYear.DateStamp,
+  Portfolio.tStockYear.stockYear, Portfolio.tStockYear.rowNumber,
+ @stockYearCloseJan1 := if( Portfolio.tStockYear.rowNumber = 1, Portfolio.tStockYear.Close,@stockYearCloseJan1) as YearStartClose ,
+ ( (Portfolio.tStockYear.Close - @stockYearCloseJan1)/@stockYearCloseJan1) as YTDPercentage
+ FROM Portfolio.tStockYear order by Symbol, DateStamp asc
 
 ---------------------------
 
 set @stockYearCloseJan1 := '', @rowNum :=0;
-SELECT mkyong.tStockYear.Symbol, mkyong.tStockYear.Close,  mkyong.tStockYear.DateStamp, mkyong.tStockYear.TotalQuantity,
-mkyong.tStockYear.Valuation , mkyong.tStockYear.stockYear, mkyong.tStockYear.rowNumber,
-@stockYearCloseJan1 := if( mkyong.tStockYear.rowNumber = 1, mkyong.tStockYear.Close,@stockYearCloseJan1) as YearStartClose ,
-( mkyong.tStockYear.Close - @stockYearCloseJan1) as YTDDifference
-FROM mkyong.tStockYear order by Symbol, DateStamp asc
+SELECT Portfolio.tStockYear.Symbol, Portfolio.tStockYear.Close,  Portfolio.tStockYear.DateStamp, Portfolio.tStockYear.TotalQuantity,
+Portfolio.tStockYear.Valuation , Portfolio.tStockYear.stockYear, Portfolio.tStockYear.rowNumber,
+@stockYearCloseJan1 := if( Portfolio.tStockYear.rowNumber = 1, Portfolio.tStockYear.Close,@stockYearCloseJan1) as YearStartClose ,
+( Portfolio.tStockYear.Close - @stockYearCloseJan1) as YTDDifference
+FROM Portfolio.tStockYear order by Symbol, DateStamp asc
 
 ;

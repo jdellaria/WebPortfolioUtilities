@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.mkyong.stock.model.Assets" table="Assets" catalog="mkyong">
+    <class name="com.portfolio.stock.model.Assets" table="Assets" catalog="Portfolio">
         <id name="stockId" type="java.lang.Long">
             <column name="ID" />
             <generator class="identity" />

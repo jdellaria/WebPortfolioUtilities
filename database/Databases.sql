@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `mkyong` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `mkyong`;
--- MySQL dump 10.13  Distrib 5.7.28, for Linux (x86_64)
+CREATE DATABASE  IF NOT EXISTS `Portfolio` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `Portfolio`;
+-- MySQL dump 10.13  Distrib 5.7.29, for Linux (x86_64)
 --
--- Host: localhost    Database: mkyong
+-- Host: 127.0.0.1    Database: Portfolio
 -- ------------------------------------------------------
--- Server version	5.7.28-0ubuntu0.18.04.4
+-- Server version	5.7.29-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,8 +37,10 @@ CREATE TABLE `Assets` (
   `Cost` decimal(10,2) DEFAULT NULL,
   `CostFreq` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastUpdated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `StartDate` date DEFAULT NULL,
+  `EndDate` date DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +51,7 @@ DROP TABLE IF EXISTS `HistoricalPrices`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `HistoricalPrices` (
-  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Symbol` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `DateStamp` datetime NOT NULL,
   `StringTimeStamp` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -59,17 +61,7 @@ CREATE TABLE `HistoricalPrices` (
   `Close` decimal(10,2) DEFAULT NULL,
   `AdjClose` decimal(10,2) DEFAULT NULL,
   `Volume` int(11) DEFAULT NULL,
-  PRIMARY KEY (`Symbol`,`DateStamp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`Symbol`,`DateStamp`),
+  UNIQUE KEY `ID` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=107033 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2020-01-23 10:47:32
